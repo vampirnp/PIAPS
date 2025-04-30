@@ -1,0 +1,73 @@
+@startuml
+interface AircraftComponent {
+    + getTotalWeight(): int
+    + add(component: AircraftComponent): void
+    + remove(component: AircraftComponent): void
+    + getChild(index: int): AircraftComponent
+    + getDescription(): String
+    + getParent(): AircraftComponent
+    + setParent(parent: AircraftComponent): void
+}
+
+abstract class Primitive implements AircraftComponent {
+    - parent: AircraftComponent
+}
+
+class Passenger extends Primitive {
+    - name: String
+    - baggageWeight: int
+    - type: String
+
+    + Passenger(name: String, baggageWeight: int, type: String)
+    + getTotalWeight(): int
+    + getDescription(): String
+}
+
+class CrewMember extends Primitive {
+    - name: String
+    - role: String
+
+    + CrewMember(name: String, role: String)
+    + getTotalWeight(): int
+    + getDescription(): String
+}
+
+abstract class AircraftComposite implements AircraftComponent {
+    - components: List<AircraftComponent>
+    - name: String
+    - parent: AircraftComponent
+
+    + AircraftComposite(name: String)
+    + getTotalWeight(): int
+    + add(component: AircraftComponent): void
+    + remove(component: AircraftComponent): void
+    + getChild(index: int): AircraftComponent
+    + getDescription(): String
+    + getParent(): AircraftComponent
+    + setParent(parent: AircraftComponent): void
+}
+
+class Airplane extends AircraftComposite {
+    - firstClass: AircraftComposite
+    - businessClass: AircraftComposite
+    - economyClass: AircraftComposite
+
+    + Airplane()
+    + addPassengerToFirstClass(passenger: Passenger): void
+    + addPassengerToBusinessClass(passenger: Passenger): void
+    + addPassengerToEconomyClass(passenger: Passenger): void
+    + checkAndAdjustWeight(): void
+}
+
+class FirstClass extends AircraftComposite {
+    + FirstClass()
+}
+
+class BusinessClass extends AircraftComposite {
+    + BusinessClass()
+}
+
+class EconomyClass extends AircraftComposite {
+    + EconomyClass()
+}
+@enduml

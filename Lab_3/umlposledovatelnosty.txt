@@ -1,0 +1,29 @@
+@startuml
+actor Client
+participant Airplane
+participant FirstClass
+participant BusinessClass
+participant EconomyClass
+participant Passenger
+participant CrewMember
+
+Client -> Airplane: new Airplane()
+Client -> Airplane: add(CrewMember)
+
+Client -> Airplane: addPassengerToFirstClass(Passenger)
+FirstClass -> FirstClass: add(Passenger)
+
+Client -> Airplane: addPassengerToBusinessClass(Passenger)
+BusinessClass -> BusinessClass: add(Passenger)
+
+Client -> Airplane: addPassengerToEconomyClass(Passenger)
+EconomyClass -> EconomyClass: add(Passenger)
+
+Client -> Airplane: getDescription()
+Airplane -> FirstClass: getDescription()
+Airplane -> BusinessClass: getDescription()
+Airplane -> EconomyClass: getDescription()
+
+Client -> Airplane: checkAndAdjustWeight()
+Airplane -> EconomyClass: remove(Passenger.baggage)
+@enduml
