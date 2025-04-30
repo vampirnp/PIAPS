@@ -1,0 +1,36 @@
+@startuml
+interface Image {
+    + draw(g: Graphics, x: int, y: int): void
+    + loadFromDisk(): void
+}
+
+class RealImage implements Image {
+    - filePath: String
+    - imageIcon: ImageIcon
+
+    + RealImage(filePath: String)
+    + draw(g: Graphics, x: int, y: int): void
+    + loadFromDisk(): void
+}
+
+class ImageProxy implements Image {
+    - realImage: RealImage
+    - filePath: String
+
+    + ImageProxy(filePath: String)
+    + draw(g: Graphics, x: int, y: int): void
+    + loadFromDisk(): void
+}
+
+class GraphicEditor {
+    - image: Image
+    - x: int
+    - y: int
+
+    + GraphicEditor(image: Image)
+    + paint(g: Graphics): void
+}
+
+GraphicEditor "1" --> "1" Image
+ImageProxy "1" --> "1" RealImage
+@enduml

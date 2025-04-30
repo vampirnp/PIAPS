@@ -1,0 +1,15 @@
+@startuml
+actor User
+participant GraphicEditor
+participant ImageProxy
+participant RealImage
+
+User -> GraphicEditor: new GraphicEditor(image: ImageProxy)
+User -> GraphicEditor: moveImage(x: int, y: int)
+GraphicEditor -> ImageProxy: draw(g: Graphics, x: int, y: int)
+
+User -> GraphicEditor: doubleClick()
+GraphicEditor -> ImageProxy: loadFromDisk()
+ImageProxy -> RealImage: new RealImage(filePath: String)
+ImageProxy -> RealImage: draw(g: Graphics, x: int, y: int)
+@enduml
